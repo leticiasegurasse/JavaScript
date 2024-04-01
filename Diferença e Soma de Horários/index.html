@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diferença e Soma de Horários</title>
+    <script>
+        var horarios = []; // Array para armazenar os horários
+
+        function adicionarHorario(horas, minutos) {
+            var horario = horas + ":" + minutos;
+            horarios.push(horario); // Adiciona o horário ao array
+            exibirHorarios(); // Atualiza a exibição dos horários
+        }
+
+        function exibirHorarios() {
+            var horariosList = document.getElementById('horariosList');
+            horariosList.innerHTML = ''; // Limpa a lista de horários
+
+            for (var i = 0; i < horarios.length; i++) {
+                var item = document.createElement('li');
+                item.textContent = horarios[i];
+                horariosList.appendChild(item);
+            }
+        }
+
+        function calcularDiferenca() {
+            var horario1 = document.getElementById('horario1').value;
+            var horario2 = document.getElementById('horario2').value;
+
+            var tempo1 = new Date("01/01/2000 " + horario1);
+            var tempo2 = new Date("01/01/2000 " + horario2);
+
+            var diferenca = Math.abs(tempo2 - tempo1);
+
+            var horas = Math.floor(diferenca / 3600000);
+            diferenca %= 3600000;
+
+            var minutos = Math.floor(diferenca / 60000);
+            diferenca %= 60000;
+
+            var segundos = Math.floor(diferenca / 1000);
+
+            adicionarHorario(horas, minutos); // Adiciona apenas horas e minutos ao array horarios
+
+            document.getElementById('resultado').innerHTML = "Diferença: " + horas + " horas, " + minutos + " minutos, " + segundos + " segundos.";
+            document.getElementById('horario1').value = '';
+            document.getElementById('horario2').value = '';
+        }
+
+        function calcularSoma() {
+            var totalSegundos = 0;
+
+            for (var i = 0; i < horarios.length; i++) {
+                var horaMinuto = horarios[i].split(":");
+                var horas = parseInt(horaMinuto[0]);
+                var minutos = parseInt(horaMinuto[1]);
+
+                totalSegundos += horas * 3600 + minutos * 60;
+            }
+
+            var horasTotal = Math.floor(totalSegundos / 3600);
+            totalSegundos %= 3600;
+            var minutosTotal = Math.floor(totalSegundos / 60);
+            var segundosTotal = totalSegundos % 60;
+
+            document.getElementById('somaTotal').textContent = "Soma Total: " + horasTotal + " horas, " + minutosTotal + " minutos, " + segundosTotal + " segundos.";
+        }
+    </script>
+</head>
+<body>
+    <h1>Diferença e Soma de Horários</h1>
+    <h2>Diferença entre dois horários:</h2>
+    <label for="horario1">Horário 1:</label>
+    <input type="time" id="horario1">
+    <br>
+    <label for="horario2">Horário 2:</label>
+    <input type="time" id="horario2">
+    <br>
+    <button onclick="calcularDiferenca()">Calcular Diferença</button>
+    <p id="resultado"></p>
+
+    <h2>Soma de horários:</h2>
+    <label for="novoHorario">Novo Horário:</label>
+    <input type="time" id="novoHorario">
+    <button onclick="adicionarHorario(novoHorario.value.split(':')[0], novoHorario.value.split(':')[1])">Adicionar</button>
+    <br>
+    <ul id="horariosList"></ul>
+    <br>
+    <button onclick="calcularSoma()">Calcular Soma Total</button>
+    <p id="somaTotal"></p>
+</body>
+</html>
