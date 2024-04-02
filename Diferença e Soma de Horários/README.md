@@ -20,5 +20,3 @@ O código JavaScript manipula a entrada dos usuários e calcula a diferença ent
 - calcularDiferenca(): Esta função calcula a diferença entre dois horários inseridos pelos usuários.
 - calcularSoma(): Esta função calcula a soma total de todos os horários adicionados à lista.
 
-## Contribuindo
-Sinta-se à vontade para contribuir com melhorias neste código. Você pode fazer um fork do repositório, implementar suas alterações e enviar um pull request. Todas as contribuições são bem-vindas!
